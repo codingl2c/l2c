@@ -1,76 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Work+Sans:wght@200;400;500;600;700&display=swap");
+
 :root {
-  --max-width: 1100px;
-  --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-
-  --primary-glow: conic-gradient(
-    from 180deg at 50% 50%,
-    #16abff33 0deg,
-    #0885ff33 55deg,
-    #54d6ff33 120deg,
-    #0071ff33 160deg,
-    transparent 360deg
-  );
-  --secondary-glow: radial-gradient(
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0)
-  );
-
-  --tile-start-rgb: 239, 245, 249;
-  --tile-end-rgb: 228, 232, 233;
-  --tile-border: conic-gradient(
-    #00000080,
-    #00000040,
-    #00000030,
-    #00000020,
-    #00000010,
-    #00000010,
-    #00000080
-  );
-
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
-  --card-rgb: 180, 185, 188;
-  --card-border-rgb: 131, 134, 135;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
-    );
-
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
+  --grey-variant-1: rgba(0, 0, 0, 0.8);
+  --yellow: #fb8500;
+  --white-variant-1: rgba(255, 255, 255, 0.8);
+  --bg-blue: #012232;
+  --white: #ffffff;
+  --primary-transition: all ease .3s;
+  --primary-scale: scale(1.02);
 }
 
 * {
@@ -78,30 +15,122 @@
   padding: 0;
   margin: 0;
 }
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+html{
+  scroll-behavior: smooth;
 }
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: "Work Sans", sans-serif;
 }
-
+ul {
+  list-style: none;
+}
 a {
-  color: inherit;
   text-decoration: none;
+  color: unset;
+}
+h2,
+p {
+  margin: 0;
+}
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  display: block;
+  height: 53px;
+  border-radius: 10px;
+}
+.c-center{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.hover{
+  transition: var(--primary-transition);
+}
+.hover:hover{
+  transform: var(--primary-scale);
+  transition: var(--primary-transition);
+}
+.c-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: auto;
+  padding: 20px 30px;
+}
+.my-1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.c-flex {
+  display: flex;
+  align-items: center;
+}
+.c-f-size-big {
+  font-size: 100px;
+}
+.c-btn-pri {
+  font-weight: 600;
+  color: var(--white-variant-1);
+  font-size: 24px;
+  background-color: var(--yellow);
+}
+.c-btn-sec {
+  font-weight: 600;
+  color: var(--white-variant-1);
+  background-color: var(--bg-blue);
+}
+.c-flex .img-wrap {
+  flex: 40%;
+  display: inline-flex;
+}
+.img-wrap img {
+  width: 100%;
+}
+.c-text-center {
+  text-align: center;
+}
+.img-wrap {
+  position: relative;
+  margin: 20px 0;
+}
+.pattern-img {
+  overflow: hidden;
+}
+.absolute-img {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .no-wrap {
+    white-space: nowrap;
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@media screen and (max-width: 767px) {
+  section{
+    overflow: hidden;
   }
+  .c-flex {
+    flex-wrap: wrap;
+  }
+  .c-f-size-big {
+    font-size: 60px;
+  }
+}
+img {
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+}
+.img-wrap {
+  min-width: 0;
+}
+.text-wrap {
+  flex: 60%;
 }
