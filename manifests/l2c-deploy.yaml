@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: l2c-frontend
+  name: l2c-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: l2c-frontend
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: l2c-frontend
+    spec:
+      containers:
+      - image: olanigan8/l2c-frontend:v1.1
+        name: l2c-frontend
+        resources: {}
+status: {}
