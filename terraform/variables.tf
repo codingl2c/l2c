@@ -40,3 +40,8 @@ variable "machine_type" {
   default     = "n1-standard-2"
 }
 
+variable "argocd_admin_password" {
+  type        = string
+  description = "Password for the ArgoCD admin user"
+  default     = "admin"
+}

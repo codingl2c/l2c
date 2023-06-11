@@ -10,8 +10,7 @@ resource "google_container_cluster" "main" {
   node_config {
     service_account = google_service_account.main.email
     oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform",
-    #    "https://www.googleapis.com/auth/container"
+      "https://www.googleapis.com/auth/cloud-platform"
     ]
   }
   timeouts {
@@ -25,11 +24,20 @@ resource "time_sleep" "wait_30_seconds" {
   create_duration = "60s"
 }
 
-# module "gke_auth" {
-#   depends_on           = [time_sleep.wait_30_seconds]
-#   source               = "terraform-google-modules/kubernetes-engine/google//modules/auth"
-#   project_id           = var.gcp_project
-#   cluster_name         = var.cluster_name
-#   location             = var.gcp_region
-#   use_private_endpoint = false
-# }
+resource "kubernetes_pod" "nginx-example" {
+  metadata {
+    name = "nginx-example"
+
+    labels = {
+      maintained_by = "terraform"
+      app           = "nginx-example"
+    }
+  }
+
+  spec {
+    container {
+      image = "nginx:1.24.0"
+      name  = "nginx-example"
+    }
+  }
+}
