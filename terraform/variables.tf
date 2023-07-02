@@ -25,7 +25,7 @@ variable "gcp_zone" {
 variable "cluster_name" {
   type        = string
   description = "Name of the GKE cluster."
-  default     = "l2c-staging"
+  default     = "l2c-dev"
 }
 
 variable "prefix" {
@@ -40,7 +40,7 @@ variable "machine_type" {
   default     = "n1-standard-2"
 }
 
-variable "argocd_admin_password" {
+variable "argocd_secret" {
   type        = string
   description = "Password for the ArgoCD admin user"
   default     = "admin"
