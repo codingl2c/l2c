@@ -1,16 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
   labels:
     app: l2c-frontend
-  name: l2c-frontend
+    argocd.argoproj.io/instance: l2c
+  name: l2c-service
 spec:
   ports:
   - port: 80
     protocol: TCP
-    targetPort: 80
+    targetPort: 3000
   selector:
     app: l2c-frontend
+  type: LoadBalancer
 status:
   loadBalancer: {}

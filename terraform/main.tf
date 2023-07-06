@@ -48,45 +48,27 @@ resource "helm_release" "argocd" {
   }
 }
 
-# resource "kubernetes_pod" "l2c-staging" {
-#   metadata {
-#     name = "l2c-frontend"
-
-#     labels = {
-#       maintained_by = "terraform"
-#       app           = "l2c-frontend"
-#     }
-#   }
-
-#   spec {
-#     container {
-#       image = "olanigan8/l2c-frontend:v1.1"
-#       name  = "l2c-frontend"
-#     }
-#   }
-# }
-
-# resource "kubernetes_manifest" "argocd-app" {
-#   manifest = {
-#   "apiVersion" = "argoproj.io/v1alpha1"
-#   "kind" = "Application"
-#   "metadata" = {
-#     "name" = "l2c"
-#     "namespace" = "argocd"
-#   }
-#   "spec" = {
-#     "destination" = {
-#       "name" = ""
-#       "namespace" = "default"
-#       "server" = "https://kubernetes.default.svc"
-#     }
-#     "project" = "default"
-#     "source" = {
-#       "path" = "manifests"
-#       "repoURL" = "https://github.com/codingl2c/l2c"
-#       "targetRevision" = "HEAD"
-#     }
-#     "sources" = []
-#   }
-# }
-# }
+resource "kubernetes_manifest" "argocd-app" {
+  manifest = {
+  "apiVersion" = "argoproj.io/v1alpha1"
+  "kind" = "Application"
+  "metadata" = {
+    "name" = "l2c"
+    "namespace" = "argocd"
+  }
+  "spec" = {
+    "destination" = {
+      "name" = ""
+      "namespace" = "default"
+      "server" = "https://kubernetes.default.svc"
+    }
+    "project" = "default"
+    "source" = {
+      "path" = "manifests"
+      "repoURL" = "https://github.com/codingl2c/l2c"
+      "targetRevision" = "HEAD"
+    }
+    "sources" = []
+  }
+}
+}
