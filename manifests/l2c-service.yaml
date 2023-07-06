@@ -3,8 +3,7 @@ kind: Service
 metadata:
   labels:
     app: l2c-frontend
-    argocd.argoproj.io/instance: l2c
-  name: l2c-service
+  name: l2c-frontend
 spec:
   ports:
   - port: 80
@@ -13,5 +12,3 @@ spec:
   selector:
     app: l2c-frontend
   type: LoadBalancer
-status:
-  loadBalancer: {}
