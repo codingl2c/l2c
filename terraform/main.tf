@@ -19,109 +19,74 @@ resource "google_container_cluster" "main" {
   }
 }
 
-# resource "time_sleep" "wait_30_seconds" {
-#   depends_on = [google_container_cluster.main]
-#   create_duration = "60s"
-# }
-
-# resource "helm_release" "nginx_ingress" {
-#   name       = "nginx-ingress-controller"
-#   repository = "https://charts.bitnami.com/bitnami"
-#   chart      = "nginx-ingress-controller"
-
-#   set {
-#     name  = "service.type"
-#     value = "ClusterIP"
-#   }
-# }
-
-# resource "helm_release" "argocd" {
-#   name = "argocd"
-#   chart = "argoproj/argo-cd"
-#   repository = "docker.io/argoproj/argocd"
-#   version = "v1.14.0"
-#   namespace = "argocd"
-
-#   # values = {
-#   #   server.image.repository = "docker.io/argoproj/argocd"
-#   #   server.image.tag = "latest"
-#   # }
-# }
-
-# resource "kubernetes_pod" "nginx-example" {
-#   metadata {
-#     name = "nginx-example"
-
-#     labels = {
-#       maintained_by = "terraform"
-#       app           = "nginx-example"
-#     }
-#   }
-
-#   spec {
-#     container {
-#       image = "nginx:1.24.0"
-#       name  = "nginx-example"
-#     }
-#   }
-# }
-
 resource "kubernetes_namespace" "argocd" {
   metadata {
     name = "argocd"
   }
 }
 
-resource "kubernetes_secret" "argocd-secret" {
-  metadata {
-    name = "argocd-secret"
-    namespace = "argocd"
-  }
+# resource "helm_release" "nginx" {
+#   name       = "nginx"
+#   repository = "https://charts.bitnami.com/bitnami"
+#   chart      = "nginx"
 
-  data = {
-    admin_password = "${var.argocd_secret}"
+#   set {
+#     name  = "replicaCount"
+#     value = 1
+#   }
+# }
+
+resource "helm_release" "argocd" {
+  name       = "argocd"
+  repository = "https://charts.bitnami.com/bitnami"
+  chart      = "argo-cd"
+  namespace = "argocd"
+  depends_on = [ kubernetes_namespace.argocd ]
+  set {
+    name  = "server.service.type"
+    value = "LoadBalancer"
   }
 }
 
-resource "kubernetes_deployment" "argocd" {
-  metadata {
-    name = "argocd-server"
-    namespace = "argocd"
-  }
+# resource "kubernetes_pod" "l2c-staging" {
+#   metadata {
+#     name = "l2c-frontend"
 
-  spec {
-    replicas = 1
-    selector {
-      match_labels = {
-        app = "argocd-server"
-      }
-    }
-    template {
-      metadata {
-        labels = {
-          app = "argocd-server"
-        }
-      }
-      spec {
-        container {
-          name = "argocd-server"
-          image = "docker.io/argoproj/argocd:latest"
-          args = ["server"]
-          # ports {
-          #   containerPort = 8080
-          # }
-          # volumeMounts {
-          #   mountPath = "/app/config"
-          #   name = "argocd-secret"
-          # }
-        }
-        # volumes {
-        #   secret {
-        #     secretName = "argocd-secret"
-        #     name = "argocd-secret"
-        #   }
-        # }
-      }
-    }
-  }
-}
+#     labels = {
+#       maintained_by = "terraform"
+#       app           = "l2c-frontend"
+#     }
+#   }
+
+#   spec {
+#     container {
+#       image = "olanigan8/l2c-frontend:v1.1"
+#       name  = "l2c-frontend"
+#     }
+#   }
+# }
+
+# resource "kubernetes_manifest" "argocd-app" {
+#   manifest = {
+#   "apiVersion" = "argoproj.io/v1alpha1"
+#   "kind" = "Application"
+#   "metadata" = {
+#     "name" = "l2c"
+#     "namespace" = "argocd"
+#   }
+#   "spec" = {
+#     "destination" = {
+#       "name" = ""
+#       "namespace" = "default"
+#       "server" = "https://kubernetes.default.svc"
+#     }
+#     "project" = "default"
+#     "source" = {
+#       "path" = "manifests"
+#       "repoURL" = "https://github.com/codingl2c/l2c"
+#       "targetRevision" = "HEAD"
+#     }
+#     "sources" = []
+#   }
+# }
+# }

@@ -39,9 +39,3 @@ variable "machine_type" {
   description = "Machine type used for all compute instances"
   default     = "n1-standard-2"
 }
-
-variable "argocd_secret" {
-  type        = string
-  description = "Password for the ArgoCD admin user"
-  default     = "admin"
-}
