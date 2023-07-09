@@ -30,3 +30,14 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Unused manifest
+/old-manifest/
+
+# Terraform
+*/.terraform/
+.terraform.lock.hcl*
+*.json
+*.tfstate
+*.tfstate.backup
+*.tfvars
